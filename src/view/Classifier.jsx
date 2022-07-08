@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import Select from 'react-select'
-import { daytimeMap, getDayTime, getWeekday } from "../model/info";
+import { daytimeMap, getDayTime, getWeekday, possibleDaytime, possibleDirections, possibleLaneTracing, possibleProvinces, possibleWeather, possibleWeekday } from "../model/info";
 import ResultView from "./ResultView";
 
 console.log(getDayTime())
@@ -12,122 +12,13 @@ export default function Classifier() {
     const [br, setBr] = useState("");
     const [countie, setCountie] = useState("");
     const [daytime, setDaytime] = useState(new Date().getHours())
-    const [weekday, setWeekday] = useState(getWeekday());
+    const [weekday, setWeekday] = useState(getWeekday())
     const [weather, setWeather] = useState("");
     const [lanetype, setLaneType] = useState("");
     const [lanetracing, setLaneTracing, ] = useState("");
-    const [dayphase, setDayPhase] = useState(getDayTime());
+    const [dayphase, setDayPhase] = useState(getDayTime())
     const [direction, setDirection] = useState("");
     const [allowClick, setAllowClick] = useState(true);
-
-    console.log(dayphase);
-
-    const possibleWeekday = [
-        {value: "SEGUNDA", label: "Segunda-feira"}, 
-        {value: "TERCA", label: "Terça-feira"}, 
-        {value: "QUARTA", label: "Quarta-feira"},
-        {value: "QUINTA", label: "Quinta-feira"}, 
-        {value: "SEXTA", label: "Sexta-feira"}, 
-        {value: "SABADO", label: "Sabado"},
-        {value: "DOMINGO", label: "Domingo"}]
-        
-    const possibleDaytime = [
-        {value: 0, label: "0h"},
-        {value: 1, label: "1h"},
-        {value: 2, label: "2h"},
-        {value: 3, label: "3h"},
-        {value: 4, label: "4h"},
-        {value: 5, label: "5h"},
-        {value: 6, label: "6h"},
-        {value: 7, label: "7h"},
-        {value: 8, label: "8h"},
-        {value: 9, label: "9h"},
-        {value: 10, label: "10h"},
-        {value: 11, label: "11h"},
-        {value: 12, label: "12h"},
-        {value: 13, label: "13h"},
-        {value: 14, label: "14h"},
-        {value: 15, label: "15h"},
-        {value: 16, label: "16h"},
-        {value: 17, label: "17h"},
-        {value: 18, label: "18h"},
-        {value: 19, label: "19h"},
-        {value: 20, label: "20h"},
-        {value: 21, label: "21h"},
-        {value: 22, label: "22h"},
-        {value: 23, label: "23h"},
-    ]
-
-    const possibleProvinces = [
-        {value: "AC", label: "Acre"},
-        {value: "AL", label: "Alagoas"},
-        {value: "AM", label: "Amazonas"},
-        {value: "AP", label: "Amapá"},
-        {value: "BA", label: "Bahia"},
-        {value: "CE", label: "Ceará"},
-        {value: "DF", label: "Distrito Federal"},
-        {value: "ES", label: "Espirito Sasnto"},
-        {value: "MA", label: "Maranhão"},
-        {value: "MS", label: "Mato Grosso do Sul"},
-        {value: "MT", label: "Mato Grosso"},
-        {value: "PA", label: "Para"},
-        {value: "PB", label: "Paraíba"},
-        {value: "PE", label: "Pernambuco"},
-        {value: "PI", label: "Piaui"},
-        {value: "PR", label: "Paraná"},
-        {value: "RJ", label: "Rio de Janeiro"},
-        {value: "RN", label: "Rio Grande do Norte"},
-        {value: "RO", label: "Rondonia"},
-        {value: "RR", label: "Roraima"},
-        {value: "RS", label: "Rio Grande do Sul"},
-        {value: "SC", label: "Santa Catarina"},
-        {value: "SE", label: "Sergipe"},
-        {value: "SP", label: "São Paulo"},
-        {value: "TO", label: "Tocantins"}]
-
-    const possibleWeather = [
-        {value: "CHUVA", label: "Chuvoso"},
-        {value: "SOL", label: "Ensolarado"},
-        {value: "GAROA/CHUVISCO", label: "Garoando/Chuviscando"},
-        {value: "NEVE", label: "Nevando"},
-        {value: "GRANIZO", label: "Granizo"},
-        {value: "CEU_CLARO", label: "Céu claro"},
-        {value: "NEVOEIRO/NEBLINA", label: "Neoveiro ou neblina"},
-        {value: "NUBLADO", label: "Nublado"},
-        {value: "VENTO", label: "Ventando"}
-    ]
-
-
-    const possibleLaneTypes = [
-        {value: "SIMPLES", label: "Simples"}, 
-        {value: "MULTIPLA", label: "Multipla"}, 
-        {value: "DUPLA", label: "Multipla"}
-    ]
-    
-    const possibleLaneTracing = [
-        {value: "CURVA", label: "Curva"},
-        {value: "TUNEL", label: "Tunel"},
-        {value: "CRUZAMENTO", label: "Cruzamento"},
-        {value: "RETA", label: "Reta"},
-        {value: "ROTATORIA", label: "Rotatória"},
-        {value: "VIADUTO", label: "Viaduto"},
-        {value: "DESVIO_TEMPORARIO", label: "Desvio temporário"},
-        {value: "PONTE", label: "Ponte"},
-        {value: "INTERSECAO_DE_VIAS", label: "Intersecção de vias"},
-        {value: "RETORNO_REGULAMENTADO", label: "Retorno regulamentado"}
-    ]
-
-    const possibleDayPhase = [
-        {value: "ANOITECER", label: "Anoitecer"},
-        {value: "AMANHECER", label: "Amanhecer"},
-        {value: "PLENA_NOITE", label: "Plena noite"},
-        {value: "PLENO_DIA", label: "Pleno dia"}
-    ]
-
-    const possibleDirections = [
-        {value: "DECRESCENTE", label: "Decrescente"},
-        {value: "CRESCENTE", label: "Crescente"}
-    ]
     
     useEffect(() => {
         fetch("http://localhost:8080/brs?province=" + province, {
@@ -220,7 +111,7 @@ export default function Classifier() {
                 </div>
                 
             </div>
-            <div className="">
+            <div className="flex justify-center">
                 <button className="bg-indigo-500 w-2/6 rounded-md py-2 px-4 text-white font-semibold" onClick={() => {if(allowClick) {classify()}; setAllowClick(false);}}>CLASSIFICAR</button>
             </div>
         </div>
