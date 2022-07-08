@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import Select from 'react-select'
-import { daytimeMap, getDayTime, getWeekday, possibleDaytime, possibleDirections, possibleLaneTracing, possibleProvinces, possibleWeather, possibleWeekday } from "../model/info";
+import { daytimeMap, getDayTime, getWeekday, possibleDaytime, possibleDirections, possibleLaneTracing, possibleLaneTypes, possibleProvinces, possibleWeather, possibleWeekday } from "../model/info";
 import ResultView from "./ResultView";
 
 console.log(getDayTime())
