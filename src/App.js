@@ -1,6 +1,6 @@
-import Classifier from "./view/Classifier";
+import Classifier from "./components/view/Classifier";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import ResultView from "./view/ResultView";
+import ResultView from "./components/view/ResultView";
 
 function App() {
   return (

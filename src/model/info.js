@@ -77,7 +77,7 @@ export const possibleProvinces = [
     { value: "BA", label: "Bahia" },
     { value: "CE", label: "Ceará" },
     { value: "DF", label: "Distrito Federal" },
-    { value: "ES", label: "Espirito Sasnto" },
+    { value: "ES", label: "Espirito Santo" },
     { value: "MA", label: "Maranhão" },
     { value: "MS", label: "Mato Grosso do Sul" },
     { value: "MT", label: "Mato Grosso" },
