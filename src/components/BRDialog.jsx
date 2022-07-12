@@ -95,7 +95,7 @@ export default function BRDialog({routes, setRoutes}) {
             <Select
               labelId="br-label"
               id="br-select"
-              value={countie}
+              value={lane}
               onChange={(event) => setLane(event.target.value)}
               label="BR"
               disabled={province === ""}
