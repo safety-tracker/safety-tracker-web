@@ -103,7 +103,7 @@ export const possibleWeather = [
     { value: "NEVE", label: "Nevando" },
     { value: "GRANIZO", label: "Granizo" },
     { value: "CEU_CLARO", label: "Céu claro" },
-    { value: "NEVOEIRO/NEBLINA", label: "Neoveiro ou neblina" },
+    { value: "NEVOEIRO/NEBLINA", label: "Nevoeiro ou neblina" },
     { value: "NUBLADO", label: "Nublado" },
     { value: "VENTO", label: "Ventando" }
 ]
