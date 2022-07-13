@@ -40,6 +40,10 @@ export default function BRDialog({routes, setRoutes}) {
   };
 
   const addAndClose = () => {
+    if(lane === "" || province === "" || countie === "") {
+      alert("Preencha todos os campos")
+      return
+    }
     const newRoutes = [...routes, {br: lane, estado: province, cidade: countie}]
     setRoutes(newRoutes)
     setOpen(false);

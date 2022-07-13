@@ -5,11 +5,6 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Route from "../Route";
 
 export default function Classifier() {
-    const [province, setProvince] = useState("");
-    const [counties, setCounties] = useState([]);
-    const [brs, setBrs] = useState([]);
-    const [br, setBr] = useState("");
-    const [countie, setCountie] = useState("");
     const [daytime, setDaytime] = useState(new Date().getHours())
     const [weekday, setWeekday] = useState(getWeekday())
     const [weather, setWeather] = useState("");
@@ -19,11 +14,16 @@ export default function Classifier() {
     const [routes, setRoutes] = useState([])
 
     function classify() {
+        if(daytime === "" || weekday === "" || weather === "") {
+            alert("Preencha todos os campos")
+            return
+        }
+        if(routes.length < 1) {
+            alert("Adicione pelo menos uma rodovia à sua rota")
+            return
+        }
         const obj = {
-            estado: province,
-            br: br,
             diaDaSemana: weekday,
-            cidade: countie,
             horario: daytime,
             condicoesMetereologicas: weather,
             faseDia: dayphase
