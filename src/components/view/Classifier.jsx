@@ -18,7 +18,7 @@ export default function Classifier() {
             alert("Preencha todos os campos")
             return
         }
-        if(routes.length < 1) {
+        if(routes.length === 0) {
             alert("Adicione pelo menos uma rodovia à sua rota")
             return
         }
