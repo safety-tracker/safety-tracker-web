@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react"
 import BRDialog from "../BRDialog";
-import { daytimeMap, getDayTime, getWeekday, possibleDaytime, possibleDirections, possibleLaneTracing, possibleLaneTypes, possibleProvinces, possibleWeather, possibleWeekday } from "../../model/info";
+import { daytimeMap, getDayTime, getWeekday, possibleDaytime, possibleWeather, possibleWeekday } from "../../model/info";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Route from "../Route";
+import { classify as api_classify} from '../../api/api.js'
+import Result from "../../model/Result";
 
 export default function Classifier() {
     const [daytime, setDaytime] = useState(new Date().getHours())
@@ -23,34 +25,17 @@ export default function Classifier() {
             return
         }
         const obj = {
-            diaDaSemana: weekday,
-            horario: daytime,
-            condicoesMetereologicas: weather,
-            faseDia: dayphase
+            weekday: weekday,
+            daytime: daytime,
+            weather: weather,
+            day_phase: dayphase,
+            route: routes
         }
-        console.log(obj);
-        fetch("http://localhost:8080/classify", {
-            method: 'POST', headers: {
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-                'Access-Control-Allow-Origin': '*'
-            }, body: JSON.stringify(obj)
-        })
-            .then(response => response.json())
-            .then(resp => {
-                localStorage.setItem("riscoFatal", resp.riscoFatal);
-                localStorage.setItem("riscoIleso", resp.riscoIleso);
-                localStorage.setItem("riscoFerido", resp.riscoFerido);
-                localStorage.setItem("dangerousBr", resp.dangerousBr);
-                localStorage.setItem("dangerousTime", resp.dangerousTime);
-                localStorage.setItem("causaMaisComum", resp.causaMaisComum);
-                localStorage.setItem("tipoMaisComum", resp.tipoMaisComum);
-                localStorage.setItem("tipoDeAcidenteMaisRecorente", resp.tipoDeAcidenteMaisRecorente);
-                localStorage.setItem("horarioMaisPerigoso", resp.horarioMaisPerigoso);
-                localStorage.setItem("horarioMaisSeguro", resp.horarioMaisSeguro);
-                window.location.href = "/result";
-                setAllowClick(true);
-            })
+
+        api_classify(obj, (result) => {
+            localStorage.setItem("result", JSON.stringify(result))
+            window.location.href = "/result"
+        });
     }
 
     function updateDaytime(val) {
@@ -60,7 +45,7 @@ export default function Classifier() {
 
     return (
         <div className="bg-white border-[1px] flex justify-center">
-            <div className="mx-10 my-10 ">
+            <div className="md:mx-10 md:my-10 ">
                 <div className="flex align-center justify-center">
                     <div>
                         <p className="text-indigo-500 text-7xl text-center font-inter font-extrabold">Safety</p>
@@ -71,9 +56,9 @@ export default function Classifier() {
                 </div>
 
                 <div className="mt-10">
-                    <div className="w-3/5">
+                    <div className="w-full md:w-3/5">
                         <p className="font-inter font-medium text-gray-800 mb-5">Condições gerais do trajeto:</p>
-                        <div className="flex">
+                        <div className="md:flex inline-block">
                             <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                                 <InputLabel id="daytime-label">Horário</InputLabel>
                                 <Select labelId="daytime-label" id="daytime-select" value={daytime} onChange={(event) => updateDaytime(event.target.value)} label="Horário" >
